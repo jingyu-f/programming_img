@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
+  </head>
+  <body style="background-color: #dbdbdb;">
+    
+    <div class="container">
+     
+      <img src="snow/book_yellow-19.svg" style="pointer-events: fill; cursor:pointer; position: absolute; left:20px; width: 1200px;">
+       <!-- <img src="snow/snow.png" style="pointer-events: fill; cursor:pointer; position: absolute; left:90px; top: 690px;width:120px;"> -->
+
+  <img src="snow/snow-10.svg" style="cursor:pointer; position: absolute;top: 100px; left: 290px; height: 100px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-04.svg" style="cursor:pointer; position: absolute;top: 100px; left: 90px; height: 150px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-05.svg" style="cursor:pointer; position: absolute;top:100px; left: 160px; height: 130px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-06.svg" style="cursor:pointer; position: absolute;top:100px; left: 210px; height: 160px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-07.svg" style="cursor:pointer; position: absolute;top:190px; left:340px; height: 120px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-08.svg" style="cursor:pointer; position: absolute;top:330px; left: 150px; height: 100px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-09.svg" style="cursor:pointer; position: absolute;top:330px; left: 270px; height: 100px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-03.svg" style="cursor:pointer; position: absolute;top:330px; left: 400px; height: 150px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-11.svg" style="cursor:pointer; position: absolute;top:100px; left:340px; height: 70px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-12.svg" style="cursor:pointer; position: absolute;top: 446px; left:220px; height: 90px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-13.svg" style="cursor:pointer; position: absolute;top: 550px; left:220px; height: 80px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+  <img src="snow/snow-14.svg" style="cursor:pointer; position: absolute;top: 490px; left:90px; height: 140px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+   <img src="snow/snow-16-16.svg" style="cursor:pointer; position: absolute;top: 510px; left:440px; height: 170px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
+ 
+
+  <!-- <img src="Adobe Scan Jan 20, 2022-000-01.svg" style="cursor:pointer; position: absolute; left: 0px;" width="300" height= "300" class="ball">
+
+  <img src="Adobe Scan Jan 20, 2022-000-05.svg" style="cursor:pointer; position: absolute; left:80px; bottom: 40px;" width="300" height= "300" class="ball">
+
+  <img src="Adobe Scan Jan 20, 2022-000-04.svg" style="cursor:pointer; position: absolute; left: 60px;" width="300" height= "300" class="ball"> -->
+
+</div>
+<style>
+.ball{
+  transform-origin: center center;
+  user-select: none;
+  touch-action: none;
+  filter: invert(49%) sepia(1%) saturate(1233%) hue-rotate(76deg) brightness(98%) contrast(117%);
+/*  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);*/
+}
+
+.rotate{
+  transform-origin: center center;
+  transform:  rotate(90deg);
+
+}
+</style>
+    <script>
+  const position = { x: 0, y: 0 };
+
+
+interact(".ball")
+  .draggable({
+
+    
+    manualStart: true,
+    listeners: {
+      move(event) {
+        position.x += event.dx;
+        position.y += event.dy;
+        invert = Math.random();
+        function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+        blur = getRandomInt(3);
+        hue = getRandomInt(360);
+        console.log(hue);
+
+        event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
+        // event.target.style.filter = `invert(${invert}) sepia(84%) saturate(3000%) hue-rotate(150deg) brightness(118%) contrast(119%)`;
+        event.target.style.filter = `invert(87%) sepia(11%) saturate(2050%) hue-rotate(${hue}deg) brightness(100%) contrast(95%) blur(${blur}px)`;
+        
+
+
+        
+        
+      }
+    }
+  })
+  // This only gets called when we trigger it below using interact.start(...)
+  .on("move", function(event) {
+    const { currentTarget, interaction } = event;
+    let element = currentTarget;
+
+    // If we are dragging an item from the sidebar, its transform value will be ''
+    // We need to clone it, and then start moving the clone
+    if (
+      interaction.pointerIsDown &&
+      !interaction.interacting() &&
+      currentTarget.style.transform === ""
+    ) {
+      element = currentTarget.cloneNode(true);
+
+      // Add absolute positioning so that cloned object lives right on top of the original object
+      element.style.position = "absolute";
+      element.style.left = 0;
+      element.style.top = 0;
+      element.style.border = 'none';
+
+
+      // Add the cloned object to the document
+      const container = document.querySelector(".container");
+      container && container.appendChild(element);
+
+      // $('#btn').click(function(){
+      // $('#btn').text('clicked');
+      // $(element).removeClass('ball');
+      // $(element).addClass('rotation');
+
+      // element.style.transform = `translate(${position.x}px, ${position.y}px) rotate(90deg)`;
+
+      $(element).click(function() {
+  var rotation = getRotationDegrees($(this)) + 30;
+    console.log(rotation);
+    // element.style.transform = `translate(${position.x}px, ${position.y}px)`;
+
+    // $(this).css("transform","rotate("+rotation+"deg)");
+     $(this).css("transform", "translate("+position.x+"px, "+position.y+"px) rotate("+rotation+"deg)");
+
+
+});
+
+function getRotationDegrees(obj) {
+    var matrix = obj.css("-webkit-transform") ||
+    obj.css("-moz-transform")    ||
+    obj.css("-ms-transform")     ||
+    obj.css("-o-transform")      ||
+    obj.css("transform");
+    if(matrix !== 'none') {
+        var values = matrix.split('(')[1].split(')')[0].split(',');
+        var a = values[0];
+        var b = values[1];
+        var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+    } else { var angle = 0; }
+    return (angle < 0) ? angle + 360 : angle;
+}
+
+
+
+    
+
+
+      const { offsetTop, offsetLeft } = currentTarget;
+      position.x = offsetLeft;
+      position.y = offsetTop;
+
+    }
+
+
+
+    // Start the drag event
+    interaction.start({ name: "drag" }, event.interactable, element);
+
+
+    
+    
+  });
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
