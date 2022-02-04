@@ -14,7 +14,6 @@
       <img src="snow/book_yellow-19.svg" style="pointer-events: fill; cursor:pointer; position: absolute; left:20px; width: 1200px;">
       <style>@import url('https://fonts.googleapis.com/css2?family=Arapey&display=swap');</style>
       <p style="font-family: 'Arapey', serif; position:absolute; left: 20px; bottom:0px; position:absolute; bottom:0px;font-size:11pt;">jingyu | programming images ws2022 at risd</p>
-       <!-- <img src="snow/snow.png" style="pointer-events: fill; cursor:pointer; position: absolute; left:90px; top: 690px;width:120px;"> -->
 
   <img src="snow/snow-10.svg" style="cursor:pointer; position: absolute;top: 100px; left: 290px; height: 100px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
   <img src="snow/snow-04.svg" style="cursor:pointer; position: absolute;top: 100px; left: 90px; height: 150px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
@@ -30,12 +29,6 @@
   <img src="snow/snow-14.svg" style="cursor:pointer; position: absolute;top: 490px; left:90px; height: 140px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
    <img src="snow/snow-16-16.svg" style="cursor:pointer; position: absolute;top: 510px; left:440px; height: 170px; width: auto; border: 1.8px solid black; border-style: dotted;"  class="ball">
  
-
-  <!-- <img src="Adobe Scan Jan 20, 2022-000-01.svg" style="cursor:pointer; position: absolute; left: 0px;" width="300" height= "300" class="ball">
-
-  <img src="Adobe Scan Jan 20, 2022-000-05.svg" style="cursor:pointer; position: absolute; left:80px; bottom: 40px;" width="300" height= "300" class="ball">
-
-  <img src="Adobe Scan Jan 20, 2022-000-04.svg" style="cursor:pointer; position: absolute; left: 60px;" width="300" height= "300" class="ball"> -->
 
 </div>
 <style>
@@ -75,7 +68,7 @@ interact(".ball")
         console.log(hue);
 
         event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
-        // event.target.style.filter = `invert(${invert}) sepia(84%) saturate(3000%) hue-rotate(150deg) brightness(118%) contrast(119%)`;
+ 
         event.target.style.filter = `invert(87%) sepia(11%) saturate(2050%) hue-rotate(${hue}deg) brightness(100%) contrast(95%) blur(${blur}px)`;
         
 
@@ -85,13 +78,12 @@ interact(".ball")
       }
     }
   })
-  // This only gets called when we trigger it below using interact.start(...)
+
   .on("move", function(event) {
     const { currentTarget, interaction } = event;
     let element = currentTarget;
 
-    // If we are dragging an item from the sidebar, its transform value will be ''
-    // We need to clone it, and then start moving the clone
+
     if (
       interaction.pointerIsDown &&
       !interaction.interacting() &&
@@ -99,30 +91,20 @@ interact(".ball")
     ) {
       element = currentTarget.cloneNode(true);
 
-      // Add absolute positioning so that cloned object lives right on top of the original object
+
       element.style.position = "absolute";
       element.style.left = 0;
       element.style.top = 0;
       element.style.border = 'none';
 
 
-      // Add the cloned object to the document
+
       const container = document.querySelector(".container");
       container && container.appendChild(element);
-
-      // $('#btn').click(function(){
-      // $('#btn').text('clicked');
-      // $(element).removeClass('ball');
-      // $(element).addClass('rotation');
-
-      // element.style.transform = `translate(${position.x}px, ${position.y}px) rotate(90deg)`;
 
       $(element).click(function() {
   var rotation = getRotationDegrees($(this)) + 30;
     console.log(rotation);
-    // element.style.transform = `translate(${position.x}px, ${position.y}px)`;
-
-    // $(this).css("transform","rotate("+rotation+"deg)");
      $(this).css("transform", "translate("+position.x+"px, "+position.y+"px) rotate("+rotation+"deg)");
 
 
@@ -155,8 +137,6 @@ function getRotationDegrees(obj) {
     }
 
 
-
-    // Start the drag event
     interaction.start({ name: "drag" }, event.interactable, element);
 
 
